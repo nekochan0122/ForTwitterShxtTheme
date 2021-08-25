@@ -2,7 +2,7 @@
 
 ## Requirements
 
-[Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)
+[Tampermonkey](https://www.tampermonkey.net/)
 
 ## Install
 
