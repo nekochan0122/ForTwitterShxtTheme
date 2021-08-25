@@ -15,7 +15,7 @@ $darkMode: 1; // 1 or 0
 /* mixin */
 @mixin darkMode {
   @if $darkMode > 0 {
-    color: white;
+    color: white !important;
   }
 }
 
