@@ -15,7 +15,6 @@ window.onload = async _ => {
   const tweetBtnDom = await init()
   const themeColor = getBackgroundColor(tweetBtnDom)
   const isDarkMode = getBackgroundColor(document.body) !== 'rgb(255, 255, 255)'
-  // console.log(isDarkMode)
   insertStyle(themeColor, isDarkMode)
 }
 
