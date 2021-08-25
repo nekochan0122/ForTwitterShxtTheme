@@ -44,6 +44,7 @@ div[data-testid$="unfollow"] {
   transition: background-color .2s;
 
   &:hover {
+    border-color: transparent !important;
     @include backgroundTheme;
   }
 
