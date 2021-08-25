@@ -13,8 +13,10 @@ window.onload = async _ => {
 
   /* 獲取當前主題顏色並插入動態樣式 */
   const tweetBtnDom = await init()
-  const themeColor = window.getComputedStyle(tweetBtnDom).getPropertyValue('background-color')
-  insertStyle(themeColor)
+  const themeColor = getBackgroundColor(tweetBtnDom)
+  const isDarkMode = getBackgroundColor(document.body) !== 'rgb(255, 255, 255)'
+  // console.log(isDarkMode)
+  insertStyle(themeColor, isDarkMode)
 }
 
 /**
@@ -46,9 +48,10 @@ function init() {
 /**
  * 插入樣式
  * @param { string } themeColor 主題顏色
+ * @param { boolean } isDarkMode 是否為暗黑模式
  * @return { void }
  */
-function insertStyle(themeColor) {
+function insertStyle(themeColor, isDarkMode) {
   const style = document.createElement('style')
   const styles = document.createTextNode(`
     /* 跟隨按鈕 */
@@ -56,20 +59,23 @@ function insertStyle(themeColor) {
       background-color: ${themeColor} !important;
     }
     div[data-testid$='follow'] span span {
-      color: white !important
+      ${textColor(isDarkMode)}
     }
 
     /* 取消跟隨按鈕 */
     div[data-testid$='unfollow'] {
       background-color: transparent !important;
-      transition: background-color 0.2s;
+      transition: all 0.2s;
     }
     div[data-testid$='unfollow']:hover {
       border-color: transparent !important;
       background-color: ${themeColor} !important;
     }
     div[data-testid$='unfollow'] span span {
-      color: white !important
+      color: ${isDarkMode ? 'white' : 'black'};
+    }
+    div[data-testid$='unfollow'] span span:hover {
+      color: white !important;
     }
 
     /* 確認取消按鈕 */
@@ -77,7 +83,7 @@ function insertStyle(themeColor) {
       background-color: ${themeColor} !important;
     }
     div[data-testid='confirmationSheetConfirm'] div span span {
-      color: white !important
+      ${textColor(isDarkMode)}
     }
 
     /* 個人資料按鈕 */
@@ -85,7 +91,7 @@ function insertStyle(themeColor) {
       background-color: ${themeColor} !important;
     }
     a[href='/settings/profile'] span span {
-      color: white !important;
+      ${textColor(isDarkMode)};
     }
 
     /* 個人資料儲存按鈕 */
@@ -93,7 +99,7 @@ function insertStyle(themeColor) {
       background-color: ${themeColor} !important;
     }
     div[data-testid='Profile_Save_Button'] div span span {
-      color: white !important
+      ${textColor(isDarkMode)}
     }
 
     /* 滾動條 */
@@ -110,11 +116,14 @@ function insertStyle(themeColor) {
 
   style.appendChild(styles)
   document.head.appendChild(style)
+
+  function textColor(isDarkMode) {
+    return isDarkMode ? 'color: white !important' : ''
+  }
 }
 
 /**
  * 監聽 HTML (用完請手動 disconnect)
- *
  * @param { MutationCallback } callback
  * @returns { MutationObserver }
  */
@@ -129,4 +138,13 @@ function listenHtml(callback) {
   })
 
   return observer
+}
+
+/**
+ * 獲取元素的背景顏色
+ * @param { HTMLElement } dom
+ * @returns { textColor }
+ */
+function getBackgroundColor(dom) {
+  return window.getComputedStyle(dom).getPropertyValue('background-color')
 }
