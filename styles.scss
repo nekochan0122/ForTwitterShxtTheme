@@ -5,7 +5,7 @@
   Version : 0.0.0
 */
 
-/* 主題顏色聲明 ( 別碰 / Don't Touch ) */
+/* 主題顏色聲明 / Theme Color ( 別碰 / Don't Touch ) */
 $tBlue: #1d9cf0;
 $tYellow: #ffd401;
 $tRed: #f4222f;
@@ -14,7 +14,7 @@ $tOrange: #ff7a01;
 $tGreen: #00ba7a;
 
 /* 使用者設定區 / User Config */
-$theme: $tBlue; // $tBlue,
+$theme: $tBlue; // Theme Color
 $darkMode: 1; // 1 or 0
 
 /* mixin */
@@ -24,10 +24,14 @@ $darkMode: 1; // 1 or 0
   }
 }
 
+@mixin backgroundTheme {
+  background-color: $theme !important;
+}
+
 /* style */
 // 跟隨按鈕 / Follow Button
 div[data-testid$="follow"] {
-  background-color: $theme !important;
+  @include backgroundTheme;
 
   span span {
     @include darkMode;
@@ -40,7 +44,7 @@ div[data-testid$="unfollow"] {
   transition: background-color .2s;
 
   &:hover {
-    background-color: $theme  !important
+    @include backgroundTheme;
   }
 
   span span {
@@ -50,7 +54,7 @@ div[data-testid$="unfollow"] {
 
 // 確認取消按鈕
 div[data-testid="confirmationSheetConfirm"] {
-  background-color: $theme !important;
+  @include backgroundTheme;
 
   div span span {
     @include darkMode;
@@ -59,12 +63,12 @@ div[data-testid="confirmationSheetConfirm"] {
 
 // 編輯個人資料
 a[href="/settings/profile"] {
-  background-color: $theme !important;
+  @include backgroundTheme;
 }
 
 // 個人資料儲存按鈕
 div[data-testid="Profile_Save_Button"] {
-  background-color: $theme !important;
+  @include backgroundTheme;
 
   div span span {
     @include darkMode;
