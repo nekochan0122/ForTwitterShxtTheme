@@ -1,0 +1,86 @@
+/*
+  GitHub : NekoChanTaiwan
+  Discord : NekoChan#2851
+  Twitter : TW_NEKO_CHAN
+  Version : 0.0.0
+*/
+
+/* 主題顏色聲明 ( 別碰 / Don't Touch ) */
+$tBlue: #1d9cf0;
+
+/* 使用者設定區 / User Config */
+$theme: $tBlue; // $tBlue,
+$darkMode: 1; // 1 or 0
+
+/* mixin */
+@mixin darkMode {
+  @if $darkMode > 0 {
+    color: white;
+  }
+}
+
+/* style */
+// 跟隨按鈕 / Follow Button
+div[data-testid$="follow"] {
+  background-color: $theme !important;
+
+  span span {
+    @include darkMode;
+  }
+}
+
+// 取消跟隨按鈕 / Unfollow Button
+div[data-testid$="unfollow"] {
+  background-color: transparent !important;
+  transition: background-color .2s;
+
+  &:hover {
+    background-color: $theme  !important
+  }
+
+  span span {
+    @include darkMode;
+  }
+}
+
+// 確認取消按鈕
+div[data-testid="confirmationSheetConfirm"] {
+  background-color: $theme !important;
+
+  div span span {
+    @include darkMode;
+  }
+}
+
+// 編輯個人資料
+a[href="/settings/profile"] {
+  background-color: $theme !important;
+}
+
+// 個人資料儲存按鈕
+div[data-testid="Profile_Save_Button"] {
+  background-color: $theme !important;
+
+  div span span {
+    @include darkMode;
+  }
+}
+
+/* 滾動條 */
+* {
+  @if $darkMode > 0 {
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: rgb(95, 95, 95);
+    }
+
+    &::-webkit-scrollbar-track {
+      // background-color: #000;
+      background-color: rgb(68, 68, 68);
+    }
+
+  }
+}
